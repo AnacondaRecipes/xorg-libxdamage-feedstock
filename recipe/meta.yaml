@@ -1,5 +1,4 @@
-{% set xorg_name = "libXdamage" %}
-{% set name = "xorg-" ~ xorg_name %}
+{% set name = "xorg-libXdamage" %}
 {% set version = "1.1.7" %}
 
 package:
@@ -7,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://www.x.org/releases/individual/lib/{{ xorg_name }}-{{ version }}.tar.xz
+  url: https://www.x.org/releases/individual/lib/{{ name.split('-')[1] }}-{{ version }}.tar.xz
   sha256: 127067f521d3ee467b97bcb145aeba1078e2454d448e8748eb984d5b397bde24
 
 build:
@@ -27,18 +26,17 @@ requirements:
     - libtool
     - autoconf
     - automake
-    - xorg-util-macros
   host:
-    - xorg-xorgproto
-    - xorg-libx11
-    - xorg-libxext
-    - xorg-libxfixes
-    - xorg-util-macros
+    - xorg-xorgproto {{ xorg_xorgproto }}
+    - xorg-libx11 {{ xorg_libx11 }}
+    - xorg-libxext {{ xorg_libxext }}
+    - xorg-libxfixes {{ xorg_libxfixes }}
+    - xorg-util-macros ==1.20.2
 
 test:
   commands:
-    - test -f $PREFIX/lib/{{ xorg_name }}.dylib  # [osx]
-    - test -f $PREFIX/lib/{{ xorg_name }}.so     # [linux]
+    - test -f $PREFIX/lib/libXdamage.dylib  # [osx]
+    - test -f $PREFIX/lib/libXdamage.so     # [linux]
 
 about:
   home: https://www.x.org/
